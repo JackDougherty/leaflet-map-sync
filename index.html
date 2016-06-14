@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Leaflet-map-sync</title>
-    <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
-    <!-- dependency on Esri Leaflet Geocoder -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- div to display map; add more for title and caption if desired -->
-    <div id='map1'></div>
-    <div id='map2'></div>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
-    <!-- dependency on Esri Leaflet and Esri Leaflet Geocoder -->
-    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.8/esri-leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
-    <script type="text/javascript" src="script.js"></script>
-  </body>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Leaflet-map-sync</title>
+  <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
+  <!-- dependency on Esri Leaflet Geocoder -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id='map1'></div>
+  <div id='map2'></div>
+  <div id="basemaps-wrapper" class="leaflet-bar">
+    <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+        <option value="Imagery">Imagery<options>
+        <option value="Streets">Streets</option>
+        <option value="Topographic">Topographic</option>
+    </select>
+  </div>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
+  <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
+  <!-- dependency on Esri Leaflet and Esri Leaflet Geocoder -->
+  <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</body>
 </html>
