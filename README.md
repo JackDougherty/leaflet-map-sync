@@ -12,7 +12,9 @@ https://esri.github.io/esri-leaflet/examples/switching-basemaps.html
  https://esri.github.io/esri-leaflet/examples/geocoding-control.html
 -add permalink feature to capture lat/long/zoom in map1, and layers in map1 and map2
 https://github.com/shramov/leaflet-plugins/blob/master/examples/permalink.html
-- also watch this Mapbox GL option
+- OR rebuild it with Mapbox GL
+https://www.mapbox.com/mapbox-gl-js/example/mapbox-gl-compare/
+
 https://bl.ocks.org/boeric/f6ddea14600dc5093506
 
 https://github.com/mapbox/mapbox-gl-compare
