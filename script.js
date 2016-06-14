@@ -1,29 +1,49 @@
 var startCenter = [41.76, -72.67];
-var startZoom = 11;
+var startZoom = 14;
 
-var light = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+// UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
+var aerial1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:1934 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '1934 <a href="http://magic.library.uconn.edu">MAGIC UConn</a> and <a href="http://cslib.org">CSL</a>'
 });
+
+var esriSatellite = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+   attribution: 'Source: Esri'
+});
+
 var dark = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 });
 
 var map1 = L.map('map1', {
-    layers: [light],
+    layers: [aerial1934],
     center: startCenter,
     zoom: startZoom,
-    zoomControl: false
+    zoomControl: false,
+    scrollWheelZoom: false
 });
 
 var map2 = L.map('map2', {
-    layers: [dark],
+    layers: [esriSatellite],
     center: startCenter,
     zoom: startZoom,
-    zoomControl: false
+    zoomControl: false,
+    scrollWheelZoom: false
 });
+
+// optional : customize link to view source code; add your own GitHub repository
+map1.attributionControl
+.setPrefix('View <a href="http://github.com/jackdougherty/leaflet-map-sync">code on GitHub</a>, created with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+map2.attributionControl
+.setPrefix('');
 
 // Reposition zoom control other than default topleft
 L.control.zoom({position: "topright"}).addTo(map1);
+
+L.control.scale().addTo(map2);
 
 // // set Esri geocoding provider and place control on map
 // // http://esri.github.io/esri-leaflet/api-reference/controls/geosearch.html
