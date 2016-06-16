@@ -10,14 +10,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id='map1'></div>
-  <div id='map2'></div>
-  <div id="basemaps-wrapper" class="leaflet-bar">
-    <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
-        <option value="Imagery">Imagery<options>
-        <option value="Streets">Streets</option>
-        <option value="Topographic">Topographic</option>
-    </select>
+  <div id='map1'>
+    <!-- FIX this basemap switcher code -->
+    <div id="basemaps-wrapper" class="leaflet-bar">
+      <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+          <option value="magic1934">1934</option>
+          <option value="magic1990">1990</option>
+          <option value="magic2004">2004</option>
+          <option value="esriAll">Present<options>
+      </select>
+    </div>
+  </div>
+  <div id='map2'>
+    <div id="basemaps-wrapper" class="leaflet-bar">
+      <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+          <option value="esriAll">Present<options>
+          <option value="magic1934">1934</option>
+          <option value="magic1990">1990</option>
+          <option value="magic2004">2004</option>
+      </select>
+    </div>
   </div>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
