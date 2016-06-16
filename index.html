@@ -5,8 +5,6 @@
   <title>Leaflet-map-sync</title>
   <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
-  <!-- dependency on Esri Leaflet Geocoder -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.css">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,14 +15,14 @@
           <option value="magic1934">1934</option>
           <option value="magic1990">1990</option>
           <option value="magic2004">2004</option>
-          <option value="esriAll">Present<options>
+          <option value="esriPresent">Present<options>
       </select>
     </div>
   </div>
   <div id='map2'>
     <div id="basemaps-wrapper" class="leaflet-bar">
       <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
-          <option value="esriAll">Present<options>
+          <option value="esriPresent">Present<options>
           <option value="magic1934">1934</option>
           <option value="magic1990">1990</option>
           <option value="magic2004">2004</option>
@@ -34,9 +32,17 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Current Leaflet is beta. Check for updates at http://leafletjs.com/download.html -->
   <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
-  <!-- dependency on Esri Leaflet and Esri Leaflet Geocoder -->
+  <!-- dependency on Esri Leaflet -->
   <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.0.3/esri-leaflet-geocoder.js"></script>
+  <!-- dependency on Leaflet Plugins for Permalink -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/1.6.1/control/Permalink.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/1.6.1/control/Permalink.Marker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/1.6.1/control/Permalink.Layer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/1.6.1/control/Permalink.Overlay.min.js"></script>
+  <!-- dependency on L.GeoSearch in local directory -->
+  <script src="L.GeoSearch/js/l.control.geosearch.js"></script>
+  <script src="L.GeoSearch/js/l.geosearch.provider.google.js"></script>
+  <link rel="stylesheet" href="L.GeoSearch/css/l.geosearch.css" />
   <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
