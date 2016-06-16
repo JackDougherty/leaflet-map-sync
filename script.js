@@ -2,23 +2,40 @@ var startCenter = [41.76, -72.67];
 var startZoom = 14;
 
 // UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
-var aerial1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+var magic1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
   layers: 'MAGIC:1934 Connecticut Aerial Photography',
   format: 'image/png',
   version: '1.1.0',
   transparent: true,
-  attribution: '<a href="http://magic.library.uconn.edu">1934 MAGIC UConn</a> and <a href="http://cslib.org">CSL</a>'
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1934 MAGIC UConn</a> and <a href="http://cslib.org" target="_blank">CSL</a>'
+});
+
+var magic1990 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:1990 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1990 MAGIC UConn</a>'
+});
+
+var magic2004 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:2004 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">2004 MAGIC UConn</a>'
 });
 
 // https://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
 var esriImagery = L.esri.basemapLayer('Imagery',{
-  attribution: 'Esri Imagery'
+  attribution: '<a href="http://www.esri.com/data/find-data" target="_blank">Esri basemaps</a>'
 });
 var esriLabels = L.esri.basemapLayer('ImageryLabels');
 var esriTransportation = L.esri.basemapLayer('ImageryTransportation');
+var esriAll = [esriImagery, esriLabels, esriTransportation]
 
 var map1 = L.map('map1', {
-    layers: [aerial1934],
+    layers: [magic1934],
     center: startCenter,
     zoom: startZoom,
     zoomControl: false,
@@ -26,7 +43,7 @@ var map1 = L.map('map1', {
 });
 
 var map2 = L.map('map2', {
-    layers: [esriImagery, esriLabels, esriTransportation],
+    layers: esriAll,
     center: startCenter,
     zoom: startZoom,
     zoomControl: false,
@@ -35,12 +52,13 @@ var map2 = L.map('map2', {
 
 // optional : customize link to view source code; add your own GitHub repository
 map1.attributionControl
-.setPrefix('View <a href="http://github.com/jackdougherty/leaflet-map-sync">code on GitHub</a> with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+.setPrefix('View <a href="http://github.com/jackdougherty/leaflet-map-sync" target="_blank">code on GitHub</a> with <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 map2.attributionControl
 .setPrefix('');
 
 // Reposition zoom control other than default topleft
 L.control.zoom({position: "topright"}).addTo(map1);
+L.control.zoom({position: "topright"}).addTo(map2);
 
 L.control.scale().addTo(map2);
 
@@ -48,7 +66,7 @@ L.control.scale().addTo(map2);
 // http://esri.github.io/esri-leaflet/api-reference/controls/geosearch.html
 var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
 var searchControl = L.esri.Geocoding.geosearch({
-  position: 'topleft', // default
+  position: 'topright',
   providers: [arcgisOnline],
   expanded: false  // default = false
 }).addTo(map2);

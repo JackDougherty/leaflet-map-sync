@@ -4,17 +4,14 @@ synchronized side-by-side Leaflet dual maps to display aerial imagery tileLayer.
 ## link
 - http://jackdougherty.github.io/leaflet-map-sync/index.html
 
+## compare with
+- 2011 MAGIC Google map http://magic.lib.uconn.edu/otl/dualcontrol_aerialchange.html
+- Mapbox-gl-compare (currently does not support MAGIC WMS layers) http://github.com/jackdougherty/mapbox-gl-compare/
+
 ## To Do
 
-Decide on best platform and UI for 1934 neighborhood change map
-- working Leaflet demo above
-- Mapbox-gl-compare http://github.com/jackdougherty/mapbox-gl-compare/index.html
-- update Google MAGIC map 
-
-- decide if esri layers with labels is better option than mapbox-gl or mapbox classic js layers with labels (with user limits)
-- integrate drop-down menu code to switch layers in both maps
-https://esri.github.io/esri-leaflet/examples/switching-basemaps.html
-- decide if esri geocoder control is adequate, or consider mapbox (with user limits)
- https://esri.github.io/esri-leaflet/examples/geocoding-control.html
+- fix drop-down menu code to switch layers (1934, 1990, 2004, present) in map1 and map2; probably use some variation on this code example? https://esri.github.io/esri-leaflet/examples/switching-basemaps.html
 - add permalink feature to capture lat/long/zoom in map1, and layers in map1 and map2
 https://github.com/shramov/leaflet-plugins/blob/master/examples/permalink.html
+- decide if esri geocoder control is adequate, or consider mapbox (with user limits)
+ https://esri.github.io/esri-leaflet/examples/geocoding-control.html
