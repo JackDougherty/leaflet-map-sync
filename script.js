@@ -39,15 +39,21 @@ var map1 = L.map('map1', {
     center: startCenter,
     zoom: startZoom,
     zoomControl: false,
-    scrollWheelZoom: false
+    minZoom: 9,
+    scrollWheelZoom: false,
+    maxBounds: [[40.9301, -73.7238],
+                [42.0248, -71.7792]]
 });
 
 var map2 = L.map('map2', {
     layers: esriPresent,
     center: startCenter,
     zoom: startZoom,
+    minZoom: 9,
     zoomControl: false,
-    scrollWheelZoom: false
+    scrollWheelZoom: false,
+    maxBounds: [[40.9301, -73.7238],
+                [42.0248, -71.7792]]
 });
 
 // customize link to view source code; add your own GitHub repository
@@ -61,7 +67,7 @@ L.control.zoom({position: "topright"}).addTo(map1);
 L.control.zoom({position: "topright"}).addTo(map2);
 
 // Display permalink in URL for users to share
-// FIX to capture layers from map1 and map2 
+// FIX to capture layers from map1 and map2
 map1.addControl(new L.Control.Permalink({text: 'Permalink'}));
 
 L.control.scale().addTo(map2);
@@ -93,3 +99,56 @@ function sync(map, e) {
         reset: true
     });
 }
+
+function changeBasemap(map, basemap) {
+  var other_map = (map === 'map1') ? 'map2' : 'map1';
+  var map = (map === 'map1') ? map1 : map2;
+
+  // Disable selected layer on the neighbor map
+  // (if two maps load the same layer, weird behavior observed)
+  $('#' + other_map + ' option').removeAttr('disabled');
+  $('#' + other_map + ' option[value="' + basemap + '"]').attr('disabled', 'disabled');
+
+  // Remove the old layer(s)
+  [esriImagery,
+   esriLabels,
+   esriTransportation,
+   magic1934,
+   magic1990,
+   magic2004
+ ].forEach(function(v) {
+    map.removeLayer(v);
+  });
+
+  // Add appropriate new layer
+  switch (basemap) {
+    case 'esriPresent':
+      map.addLayer(esriImagery);
+      map.addLayer(esriLabels);
+      map.addLayer(esriTransportation);
+      break;
+    case 'magic1934':
+      map.addLayer(magic1934);
+      break;
+    case 'magic1990':
+      map.addLayer(magic1990);
+      break;
+    case 'magic2004':
+      map.addLayer(magic2004);
+      break;
+    default:
+      break;
+  }
+
+}
+
+$(document).ready(function() {
+  $('#map1basemaps').change(function() {
+    changeBasemap('map1', $(this).val());
+  });
+
+  $('#map2basemaps').change(function() {
+    changeBasemap('map2', $(this).val());
+  });
+
+});
