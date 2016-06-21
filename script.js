@@ -106,8 +106,8 @@ function changeBasemap(map, basemap) {
 
   // Disable selected layer on the neighbor map
   // (if two maps load the same layer, weird behavior observed)
-  $('#' + other_map + ' option').removeAttr('disabled');
-  $('#' + other_map + ' option[value="' + basemap + '"]').attr('disabled', 'disabled');
+  $('#' + other_map + 'basemaps option').removeAttr('disabled');
+  $('#' + other_map + 'basemaps option[value="' + basemap + '"]').attr('disabled', 'disabled');
 
   // Remove the old layer(s)
   [esriImagery,
@@ -143,12 +143,11 @@ function changeBasemap(map, basemap) {
 }
 
 $(document).ready(function() {
-  $('#map1basemaps').change(function() {
+  $('#map1basemaps select').change(function() {
     changeBasemap('map1', $(this).val());
   });
 
-  $('#map2basemaps').change(function() {
+  $('#map2basemaps select').change(function() {
     changeBasemap('map2', $(this).val());
   });
-
 });
