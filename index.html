@@ -10,20 +10,20 @@
 <body>
   <div id='map1'>
     <!-- FIX this basemap switcher code -->
-    <div id="basemaps-wrapper" class="leaflet-bar">
-      <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+    <div class="basemaps-wrapper leaflet-bar">
+      <select name="basemaps" id="map1basemaps">
           <option value="magic1934">1934</option>
           <option value="magic1990">1990</option>
           <option value="magic2004">2004</option>
-          <option value="esriPresent">Present<options>
+          <option value="esriPresent" disabled>Present<options>
       </select>
     </div>
   </div>
   <div id='map2'>
-    <div id="basemaps-wrapper" class="leaflet-bar">
-      <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+    <div class="basemaps-wrapper leaflet-bar">
+      <select name="basemaps" id="map2basemaps">
           <option value="esriPresent">Present<options>
-          <option value="magic1934">1934</option>
+          <option value="magic1934" disabled>1934</option>
           <option value="magic1990">1990</option>
           <option value="magic2004">2004</option>
       </select>
