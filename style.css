@@ -1,5 +1,14 @@
-html, body { width: 100%; height: 100%; margin: 0; }
-#map1, #map2 { width: 49.5%; height: 100%; }
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+#map1, #map2 {
+  width: 49.5%;
+  height: 100%;
+}
+
 #map1 { float: left; }
 #map2 { float: right; }
 
@@ -8,12 +17,11 @@ html, body { width: 100%; height: 100%; margin: 0; }
     top: 10px;
     left: 10px;
     z-index: 1000;
-    /*background: white;*/
-    /*padding: 0px;*/
 }
-#basemaps {
-    /*margin-bottom: 0px;*/
-}
+
+#map1basemaps { left: 10px; }
+#map2basemaps { left: calc(50.5% + 10px); }
+
 .leaflet-control-geosearch {
 	top: 25px;
 }
