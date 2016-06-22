@@ -15,8 +15,6 @@ synchronized side-by-side Leaflet dual maps to display aerial imagery tileLayer.
 - Leaflet-Plugins to generate permalink in URL https://github.com/shramov/leaflet-plugins
 
 ## To Do
-- BUG: new basemap switcher code does not work in Firefox for Mac (cannot change drop-down menu)
-  - please check code and also test in other browsers
 - REQUEST: In the permalink results, is is possible to capture the layers for map1 and map2? See layer=OSM in example below:
   - example: http://jackdougherty.github.io/leaflet-map-sync/index-permalink.html#zoom=7&lat=47.93&lon=-3.44&layer=OSM&overlays=F
   - from this working example with one map layer http://jackdougherty.github.io/leaflet-map-sync/index-permalink.html
