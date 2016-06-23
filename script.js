@@ -1,5 +1,45 @@
 var startCenter = [41.76, -72.67];
 var startZoom = 14;
+var layer1 = 'magic1934';
+var layer2 = 'esriPresent';
+
+var addr = window.location.href;
+
+// If address string contains '#', process parameters after the '#'
+if (addr.indexOf('#') !== -1) {
+  var sep = (addr.indexOf('&amp;') !== -1) ? '&amp;' : '&';
+  var params = window.location.href.split('#')[1].split(sep);
+
+  params.forEach(function(k) {
+    z = k.split('=');
+
+    switch (z[0]) {
+      case 'zoom':
+        startZoom = z[1];
+        break;
+      case 'lat':
+        startCenter[0] = z[1];
+        break;
+      case 'lng':
+        startCenter[1] = z[1];
+        break;
+      case 'layer1':
+        layer1 = z[1];
+        $('#map1basemaps option[value="' + layer1 + '"]').prop('selected', true);
+        $('#map2basemaps option').removeAttr('disabled');
+        $('#map2basemaps option[value="' + layer1 + '"]').prop('disabled', true);
+        break;
+      case 'layer2':
+        layer2 = z[1];
+        $('#map2basemaps option[value="' + layer2 + '"]').prop('selected', true);
+        $('#map1basemaps option').removeAttr('disabled');
+        $('#map1basemaps option[value="' + layer2 + '"]').prop('disabled', true);
+        break;
+      default:
+        break;
+    }
+  });
+}
 
 // UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
 var magic1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
@@ -34,8 +74,25 @@ var esriLabels = L.esri.basemapLayer('ImageryLabels');
 var esriTransportation = L.esri.basemapLayer('ImageryTransportation');
 var esriPresent = [esriImagery, esriLabels, esriTransportation];
 
+
+// Return layer named s
+function pickLayer(s) {
+  switch (s) {
+    case 'magic1934':
+      return magic1934;
+    case 'magic1990':
+      return magic1990;
+    case 'magic2004':
+      return magic2004;
+    case 'esriPresent':
+      return esriPresent;
+    default:
+      return magic1934;
+  }
+}
+
 var map1 = L.map('map1', {
-    layers: magic1934,
+    layers: pickLayer(layer1),
     center: startCenter,
     zoom: startZoom,
     zoomControl: false,
@@ -46,7 +103,7 @@ var map1 = L.map('map1', {
 });
 
 var map2 = L.map('map2', {
-    layers: esriPresent,
+    layers: pickLayer(layer2),
     center: startCenter,
     zoom: startZoom,
     minZoom: 9,
@@ -65,10 +122,6 @@ map2.attributionControl
 // Reposition zoom control other than default topleft
 L.control.zoom({position: "topright"}).addTo(map1);
 L.control.zoom({position: "topright"}).addTo(map2);
-
-// Display permalink in URL for users to share
-// FIX to capture layers from map1 and map2
-map1.addControl(new L.Control.Permalink({text: 'Permalink'}));
 
 L.control.scale().addTo(map2);
 
@@ -150,4 +203,19 @@ $(document).ready(function() {
   $('#map2basemaps select').change(function() {
     changeBasemap('map2', $(this).val());
   });
+
+  // Generate link on click
+  $('#permalink').click(function() {
+    var zoom = map1._zoom;
+    var lat = map1.getCenter().lat;
+    var lng = map1.getCenter().lng;
+    var layer1 = $('#map1basemaps select').val();
+    var layer2 = $('#map2basemaps select').val();
+    var href = '#zoom=' + zoom + '&lat=' + lat + '&lng=' +
+                  lng + '&layer1=' + layer1 + '&layer2=' + layer2;
+    // Update URL in browser
+    window.location.hash = href;
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", window.location.href);
+  });
+
 });
