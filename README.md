@@ -10,11 +10,10 @@ synchronized side-by-side Leaflet dual maps to display aerial imagery tileLayer.
 
 ## credits and dependencies
 - Thanks @ilyankou for adding basemap switcher control, permalink control, maximum bounds
-- Esri Leaflet to display Esri imagery and labels
+- jQuery
+- Esri Leaflet to display Esri imagery and labels https://github.com/Esri/esri-leaflet/
 - L.GeoSearch with Google geocode provider https://github.com/smeijer/L.GeoSearch
-- Leaflet-Plugins to generate permalink in URL https://github.com/shramov/leaflet-plugins
 
 ## To Do
-- REQUEST: In the permalink results, is is possible to capture the layers for map1 and map2? See layer=OSM in example below:
-  - example: http://jackdougherty.github.io/leaflet-map-sync/index-permalink.html#zoom=7&lat=47.93&lon=-3.44&layer=OSM&overlays=F
-  - from this working example with one map layer http://jackdougherty.github.io/leaflet-map-sync/index-permalink.html
+- check geosearch -- did it break?
+- Jack to add index-frame.html with recommended permalinks in the caption

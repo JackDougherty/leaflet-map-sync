@@ -1,11 +1,49 @@
+// set initial center point, zoom, and layers
 var startCenter = [41.76, -72.67];
+var minLatLng = [40.9301, -73.7238];
+var maxLatLng = [42.0248, -71.7792];
 var startZoom = 14;
+var minZoom = 9;
 var layer1 = 'magic1934';
 var layer2 = 'esriPresent';
 
+// define baselayers and insert further below, and also in index.html
+// UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
+var magic1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:1934 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1934 MAGIC UConn</a> and <a href="http://cslib.org" target="_blank">CSL</a>'
+});
+
+var magic1990 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:1990 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1990 MAGIC UConn</a>'
+});
+
+var magic2004 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
+  layers: 'MAGIC:2004 Connecticut Aerial Photography',
+  format: 'image/png',
+  version: '1.1.0',
+  transparent: true,
+  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">2004 MAGIC UConn</a>'
+});
+
+// https://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
+var esriImagery = L.esri.basemapLayer('Imagery',{
+  attribution: '<a href="http://www.esri.com/data/find-data" target="_blank">Esri basemaps</a>'
+});
+var esriLabels = L.esri.basemapLayer('ImageryLabels');
+var esriTransportation = L.esri.basemapLayer('ImageryTransportation');
+var esriPresent = [esriImagery, esriLabels, esriTransportation];
+
+// Check for permalink: If address string contains '#', process parameters after the '#'
 var addr = window.location.href;
 
-// If address string contains '#', process parameters after the '#'
 if (addr.indexOf('#') !== -1) {
   var sep = (addr.indexOf('&amp;') !== -1) ? '&amp;' : '&';
   var params = window.location.href.split('#')[1].split(sep);
@@ -41,41 +79,7 @@ if (addr.indexOf('#') !== -1) {
   });
 }
 
-// UConn MAGIC WMS settings - see http://geoserver.lib.uconn.edu:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
-var magic1934 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
-  layers: 'MAGIC:1934 Connecticut Aerial Photography',
-  format: 'image/png',
-  version: '1.1.0',
-  transparent: true,
-  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1934 MAGIC UConn</a> and <a href="http://cslib.org" target="_blank">CSL</a>'
-});
-
-var magic1990 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
-  layers: 'MAGIC:1990 Connecticut Aerial Photography',
-  format: 'image/png',
-  version: '1.1.0',
-  transparent: true,
-  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">1990 MAGIC UConn</a>'
-});
-
-var magic2004 = new L.tileLayer.wms("http://geoserver.lib.uconn.edu:8080/geoserver/MAGIC/wms?", {
-  layers: 'MAGIC:2004 Connecticut Aerial Photography',
-  format: 'image/png',
-  version: '1.1.0',
-  transparent: true,
-  attribution: '<a href="http://magic.library.uconn.edu" target="_blank">2004 MAGIC UConn</a>'
-});
-
-// https://esri.github.io/esri-leaflet/api-reference/layers/basemap-layer.html
-var esriImagery = L.esri.basemapLayer('Imagery',{
-  attribution: '<a href="http://www.esri.com/data/find-data" target="_blank">Esri basemaps</a>'
-});
-var esriLabels = L.esri.basemapLayer('ImageryLabels');
-var esriTransportation = L.esri.basemapLayer('ImageryTransportation');
-var esriPresent = [esriImagery, esriLabels, esriTransportation];
-
-
-// Return layer named s
+// Insert basemap variables; return layer named s
 function pickLayer(s) {
   switch (s) {
     case 'magic1934':
@@ -91,26 +95,25 @@ function pickLayer(s) {
   }
 }
 
+// Create two maps
 var map1 = L.map('map1', {
     layers: pickLayer(layer1),
     center: startCenter,
     zoom: startZoom,
     zoomControl: false,
-    minZoom: 9,
+    minZoom: minZoom,
     scrollWheelZoom: false,
-    maxBounds: [[40.9301, -73.7238],
-                [42.0248, -71.7792]]
+    maxBounds: [minLatLng,maxLatLng]
 });
 
 var map2 = L.map('map2', {
     layers: pickLayer(layer2),
     center: startCenter,
     zoom: startZoom,
-    minZoom: 9,
+    minZoom: minZoom,
     zoomControl: false,
     scrollWheelZoom: false,
-    maxBounds: [[40.9301, -73.7238],
-                [42.0248, -71.7792]]
+    maxBounds: [minLatLng,maxLatLng]
 });
 
 // customize link to view source code; add your own GitHub repository
@@ -127,7 +130,7 @@ L.control.scale().addTo(map2);
 
 new L.Control.GeoSearch({
 				provider: new L.GeoSearch.Provider.Google(),
-        position: 'topleft' // see also style.CSS
+        position: 'topleft' // see also style.css
 }).addTo(map2);
 
 // sync code adapted from https://www.mapbox.com/mapbox.js/example/v1.0.0/sync-layer-movement/
@@ -162,7 +165,7 @@ function changeBasemap(map, basemap) {
   $('#' + other_map + 'basemaps option').removeAttr('disabled');
   $('#' + other_map + 'basemaps option[value="' + basemap + '"]').attr('disabled', 'disabled');
 
-  // Remove the old layer(s)
+  // Remove the old layer(s) -- insert all basemap variables
   [esriImagery,
    esriLabels,
    esriTransportation,
@@ -173,7 +176,7 @@ function changeBasemap(map, basemap) {
     map.removeLayer(v);
   });
 
-  // Add appropriate new layer
+  // Add appropriate new layer -- insert all basemap variables
   switch (basemap) {
     case 'esriPresent':
       map.addLayer(esriImagery);
@@ -192,9 +195,9 @@ function changeBasemap(map, basemap) {
     default:
       break;
   }
-
 }
 
+// Set up to create permalink
 $(document).ready(function() {
   $('#map1basemaps select').change(function() {
     changeBasemap('map1', $(this).val());
@@ -204,7 +207,7 @@ $(document).ready(function() {
     changeBasemap('map2', $(this).val());
   });
 
-  // Generate link on click
+  // Generate permalink on click
   $('#permalink').click(function() {
     var zoom = map1._zoom;
     var lat = map1.getCenter().lat;
@@ -215,7 +218,7 @@ $(document).ready(function() {
                   lng + '&layer1=' + layer1 + '&layer2=' + layer2;
     // Update URL in browser
     window.location.hash = href;
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", window.location.href);
+    window.prompt("Copy with Cmd+C (Mac) or Ctrl+C", window.location.href);
   });
 
 });
